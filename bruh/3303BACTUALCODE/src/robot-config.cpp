@@ -7,7 +7,7 @@ using code = vision::code;
 // A global instance of brain used for printing to the V5 Brain screen.
 brain  Brain;
 
-motor Intake = motor(PORT20, ratio6_1, false);
+motor Intake = motor(PORT10, ratio6_1, false);
 motor LadyBrown = motor(PORT19,ratio6_1,false);
 
 
