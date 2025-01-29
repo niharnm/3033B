@@ -22,7 +22,7 @@ competition Competition;
 /*  already have configured your motors.                                     */
 /*---------------------------------------------------------------------------*/
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT1,ratio18_1,true);
+motor leftMotorA = motor(PORT18,ratio18_1,true);
 motor leftMotorB = motor(PORT2,ratio18_1,true);
 motor leftMotorC = motor(PORT3,ratio18_1,true);
 motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
