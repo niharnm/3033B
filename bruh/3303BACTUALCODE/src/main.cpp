@@ -23,18 +23,17 @@ competition Competition;
 /*---------------------------------------------------------------------------*/
 controller Controller1 = controller(primary);
 motor leftMotorA = motor(PORT18,ratio18_1,true);
-motor leftMotorB = motor(PORT2,ratio18_1,true);
-motor leftMotorC = motor(PORT3,ratio18_1,true);
+motor leftMotorB = motor(PORT5,ratio18_1,true);
+motor leftMotorC = motor(PORT8,ratio18_1,true);
 motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
-motor rightMotorA = motor(PORT4,ratio18_1,true);
-motor rightMotorB = motor(PORT5,ratio18_1,true);
-motor rightMotorC = motor(PORT6,ratio18_1,true);
+motor rightMotorA = motor(PORT11,ratio18_1,true);
+motor rightMotorB = motor(PORT6,ratio18_1,true);
+motor rightMotorC = motor(PORT10,ratio18_1,true);
 motor_group rightmotors = motor_group(rightMotorA, rightMotorB,rightMotorC);
 
-optical OpSensor = optical(PORT7);
-inertial DrivetrainInertial = inertial(PORT8);
+inertial DrivetrainInertial = inertial(PORT1);
 
-// all of these ports are fake, fix them properly
+// drivetrainintertial port is incorrect, must be updated
 
 
 
