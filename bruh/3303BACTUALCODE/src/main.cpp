@@ -24,11 +24,11 @@ competition Competition;
 controller Controller1 = controller(primary);
 motor leftMotorA = motor(PORT18,ratio18_1,true);
 motor leftMotorB = motor(PORT5,ratio18_1,true);
-motor leftMotorC = motor(PORT8,ratio18_1,true);
+motor leftMotorC = motor(PORT8,ratio18_1,false);
 motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
 motor rightMotorA = motor(PORT11,ratio18_1,true);
 motor rightMotorB = motor(PORT6,ratio18_1,true);
-motor rightMotorC = motor(PORT10,ratio18_1,true);
+motor rightMotorC = motor(PORT10,ratio18_1,false);
 motor_group rightmotors = motor_group(rightMotorA, rightMotorB,rightMotorC);
 
 inertial DrivetrainInertial = inertial(PORT1);
