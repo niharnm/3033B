@@ -22,16 +22,16 @@ competition Competition;
 /*  already have configured your motors.                                     */
 /*---------------------------------------------------------------------------*/
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT18,ratio18_1,true);
+motor leftMotorA = motor(PORT12,ratio18_1,true);
 motor leftMotorB = motor(PORT5,ratio18_1,true);
 motor leftMotorC = motor(PORT8,ratio18_1,false);
 motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
-motor rightMotorA = motor(PORT11,ratio18_1,true);
-motor rightMotorB = motor(PORT6,ratio18_1,true);
-motor rightMotorC = motor(PORT10,ratio18_1,false);
+motor rightMotorA = motor(PORT7,ratio18_1,true);
+motor rightMotorB = motor(PORT4,ratio18_1,true);
+motor rightMotorC = motor(PORT20,ratio18_1,false);
 motor_group rightmotors = motor_group(rightMotorA, rightMotorB,rightMotorC);
 
-inertial DrivetrainInertial = inertial(PORT1);
+inertial DrivetrainInertial = inertial(PORT17);
 
 // drivetrainintertial port is incorrect, must be updated
 
@@ -58,13 +58,13 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(),
+leftmotors,
 
 //Right Motors:
-motor_group(),
+rightmotors,
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT1,
+PORT17,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -90,10 +90,6 @@ PORT1,
 
 //FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
 //LF:      //RF:    
-PORT1,     -PORT2,
-
-//LB:      //RB: 
-PORT3,     -PORT4,
 
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
@@ -174,7 +170,6 @@ void pre_auton() {
     } else if (current_auton_selection == 8){
       current_auton_selection = 0;
     }
-    task::sleep(10);
   }
 }
 
@@ -287,11 +282,14 @@ vexcodeInit();
        // hue from 0-30 red 
        // hue from 180-220 blue
 
-    if (OpSensor.hue() > 0 && OpSensor.hue() < 30){
-    Intake.spinFor(1.5, rev);
-    Intake.stop();
-    wait(500,msec);
-    }    
+  if (Controller1.ButtonL1.pressing()) {
+    LadyBrown.spin(forward);
+  } else if (Controller1.ButtonL2.pressing()){
+    LadyBrown.spin(reverse);
+  } else {
+    LadyBrown.stop();
+  }
+
 
                                                                                                         
 
