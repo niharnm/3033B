@@ -22,13 +22,13 @@ competition Competition;
 /*  already have configured your motors.                                     */
 /*---------------------------------------------------------------------------*/
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT12,ratio18_1,true);
+motor leftMotorA = motor(PORT8,ratio18_1,false);
 motor leftMotorB = motor(PORT5,ratio18_1,true);
-motor leftMotorC = motor(PORT8,ratio18_1,false);
+motor leftMotorC = motor(PORT18,ratio18_1,true);
 motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
-motor rightMotorA = motor(PORT7,ratio18_1,true);
+motor rightMotorA = motor(PORT20,ratio18_1,true);
 motor rightMotorB = motor(PORT4,ratio18_1,true);
-motor rightMotorC = motor(PORT20,ratio18_1,false);
+motor rightMotorC = motor(PORT7,ratio18_1,false);
 motor_group rightmotors = motor_group(rightMotorA, rightMotorB,rightMotorC);
 
 inertial DrivetrainInertial = inertial(PORT17);
