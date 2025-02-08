@@ -8,86 +8,76 @@ using code = vision::code;
 brain  Brain;
 
 motor Intake = motor(PORT10, ratio6_1, false);
-motor LadyBrown = motor(PORT19,ratio6_1,false);
+motor LadyBrown = motor(PORT19, ratio6_1, false);
 
-
-digital_out Clamp = digital_out(Brain.ThreeWirePort.H);  
-digital_out Doinker = digital_out(Brain.ThreeWirePort.A);
-digital_out IntakeLevel = digital_out(Brain.ThreeWirePort.B);
+digital_out Clamp = digital_out(Brain.ThreeWirePort.A);  
 
 
 
-void vexcodeInit( void ) {
-   Brain.Screen.print("Device initialization...");
+bool clampState = false;
+
+void vexcodeInit(void) {
+  Brain.Screen.print("Device initialization...");
   Brain.Screen.setCursor(2, 1);
-  // calibrate the drivetrain Inertial
   wait(200, msec);
 
-  
-  // reset the screen now that the calibration is complete
   Brain.Screen.clearScreen();
-  Brain.Screen.setCursor(1,1);
+  Brain.Screen.setCursor(1, 1);
   wait(50, msec);
   Brain.Screen.clearScreen();
-  
-  LadyBrown.spin(reverse,100,pct);
-  wait(250,msec);
+
+  LadyBrown.spin(reverse, 100, pct);
+  wait(250, msec);
   LadyBrown.stop();
   LadyBrown.resetPosition();
- 
 }
 
-void Raise(void){
-  LadyBrown.spinToPosition(0.9,rev);
+void Raise(void) {
+  LadyBrown.spinToPosition(0.9, rev);
   LadyBrown.stop(hold);
 }
 
-void Release(void){
-  LadyBrown.spinToPosition(0,rev);
+void Release(void) {
+  LadyBrown.spinToPosition(0, rev);
   LadyBrown.stop(hold);
 }
 
-void Score(void){
-  LadyBrown.spinToPosition(6.5,rev);
+void Score(void) {
+  LadyBrown.spinToPosition(6.5, rev);
   LadyBrown.stop(hold);
 }
 
-void ClampIn(){
+void ClampIn() {
   Clamp.set(true);
 }
-void ClampOut(){
+
+void ClampOut() {
   Clamp.set(false);
 }
-void DoinkerIn(){
+
+void DoinkerIn() {
   Doinker.set(false);
 }
-void DoinkerOut(){
+
+void DoinkerOut() {
   Doinker.set(true);
 }
-void IntakeLiftUp(){
+
+void IntakeLiftUp() {
   IntakeLevel.set(true);
 }
-void IntakeLiftDown(){
+
+void IntakeLiftDown() {
   IntakeLevel.set(false);
 }
 
-void toggleDoinker(void){
-  if(Doinker.value()){
+void toggleDoinker(void) {
+  if (Doinker.value()) {
     Doinker.set(false);
-  }
-  else{
+  } else {
     Doinker.set(true);
   }
   wait(250, msec);
 }
 
 
-void toggleClamp(void){
-  if(Clamp.value()){
-    Clamp.set(false);
-  }
-  else{
-    Clamp.set(true);
-  }
-  wait(250, msec);
-}
