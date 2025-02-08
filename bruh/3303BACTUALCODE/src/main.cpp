@@ -27,14 +27,13 @@ motor leftMotorB = motor(PORT5,ratio18_1,true);
 motor leftMotorC = motor(PORT18,ratio18_1,true);
 motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
 motor rightMotorA = motor(PORT20,ratio18_1,true);
-motor rightMotorB = motor(PORT4,ratio18_1,true);
+motor rightMotorB = motor(PORT4,ratio18_1,false);
 motor rightMotorC = motor(PORT7,ratio18_1,false);
 motor_group rightmotors = motor_group(rightMotorA, rightMotorB,rightMotorC);
 
 inertial DrivetrainInertial = inertial(PORT17);
 
-// drivetrainintertial port is incorrect, must be updated
-
+bool isClamp = false; 
 
 
 Drive chassis(
@@ -67,7 +66,7 @@ rightmotors,
 PORT17,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-3.25,
+4.25,
 
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
@@ -90,7 +89,10 @@ PORT17,
 
 //FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
 //LF:      //RF:    
+PORT1, -PORT2,
 
+
+PORT3, -PORT4,
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
 //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
@@ -290,23 +292,30 @@ vexcodeInit();
     LadyBrown.stop();
   }
 
+  if (isClamp) {
+    Clamp.set(true);
+  }
+  else {
+    Clamp.set(false);
+  }
+
+  if (Controller1.ButtonB.pressing()) {
+    isClamp = !isClamp;
+    waitUntil(!Controller1.ButtonB.pressing());
+  }
+
 
                                                                                                         
 
 
 
-      Controller1.ButtonL1.pressed(DoinkerOut);
-      Controller1.ButtonL1.released(DoinkerIn);
+      
 
-      Controller1.ButtonL2.pressed(ClampIn);
-      Controller1.ButtonL2.released(ClampOut);
+     
 
-    if(Controller1.ButtonUp.pressing()){
-      IntakeLevel.set(false);
-    }
-    else if(!Controller1.ButtonUp.pressing()){
-      IntakeLevel.set(true);
-    }
+
+
+
 
 
     
