@@ -1,20 +1,3 @@
-#include "vex.h"
-using namespace vex;
-competition Competition;
-
-/*---------------------------------------------------------------------------*/
-/*                             VEXcode Config                                */
-/*                                                                           */
-/*  Before you do anything else, start by configuring your motors and        */
-/*  sensors. In VEXcode Pro V5, you can do this using the graphical          */
-/*  configurer port icon at the top right. In the VSCode extension, you'll   */
-/*  need to go to robot-config.cpp and robot-config.h and create the         */
-/*  motors yourself by following the style shown. All motors must be         */
-/*  properly reversed, meaning the drive should drive forward when all       */
-/*  motors spin forward.                                                     */
-/*---------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------*/
 /*                             JAR-Template Config                           */
 /*                                                                           */
 /*  Where all the magic happens. Follow the instructions below to input      */
@@ -22,7 +5,7 @@ competition Competition;
 /*  already have configured your motors.                                     */
 /*---------------------------------------------------------------------------*/
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT8,ratio18_1,false);
+motor leftMotorA = motor(PORT12,ratio18_1,false);
 motor leftMotorB = motor(PORT5,ratio18_1,true);
 motor leftMotorC = motor(PORT18,ratio18_1,true);
 motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
@@ -32,7 +15,7 @@ motor rightMotorC = motor(PORT7,ratio18_1,false);
 motor_group rightmotors = motor_group(rightMotorA, rightMotorB,rightMotorC);
 
 inertial DrivetrainInertial = inertial(PORT17);
-
+inertial Inertialsensor = inertial(PORT11);
 bool isClamp = false; 
 
 
@@ -63,7 +46,7 @@ leftmotors,
 rightmotors,
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT17,
+PORT11,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 4.25,
