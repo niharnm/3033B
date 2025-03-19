@@ -1,23 +1,36 @@
+#include "vex.h"
+#include <iostream>
+using namespace vex;
+competition Competition;
+
+/*---------------------------------------------------------------------------*/
+/*                             VEXcode Config                                */
+/*                                                                           */
+/*  Before you do anything else, start by configuring your motors and        */
+/*  sensors. In VEXcode Pro V5, you can do this using the graphical          */
+/*  configurer port icon at the top right. In the VSCode extension, you'll   */
+/*  need to go to robot-config.cpp and robot-config.h and create the         */
+/*  motors yourself by following the style shown. All motors must be         */
+/*  properly reversed, meaning the drive should drive forward when all       */
+/*  motors spin forward.                                                     */
+/*---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------*/
 /*                             JAR-Template Config                           */
 /*                                                                           */
 /*  Where all the magic happens. Follow the instructions below to input      */
 /*  all the physical constants and values for your robot. You should         */
 /*  already have configured your motors.                                     */
 /*---------------------------------------------------------------------------*/
-controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT12,ratio18_1,false);
-motor leftMotorB = motor(PORT5,ratio18_1,true);
-motor leftMotorC = motor(PORT18,ratio18_1,true);
-motor_group leftmotors = motor_group(leftMotorA, leftMotorB,leftMotorC);
-motor rightMotorA = motor(PORT20,ratio18_1,true);
-motor rightMotorB = motor(PORT4,ratio18_1,false);
-motor rightMotorC = motor(PORT7,ratio18_1,false);
-motor_group rightmotors = motor_group(rightMotorA, rightMotorB,rightMotorC);
+motor LeftA = motor(PORT12, ratio6_1, true);
+motor LeftB = motor(PORT14, ratio6_1, true);
+motor LeftC = motor(PORT11, ratio6_1, true);
+motor_group Lefts = motor_group(LeftA, LeftB,LeftC);
 
-inertial DrivetrainInertial = inertial(PORT17);
-inertial Inertialsensor = inertial(PORT11);
-bool isClamp = false; 
-
+motor RightA = motor(PORT19, ratio6_1, false);
+motor RightB = motor(PORT13, ratio6_1, false);
+motor RightC = motor(PORT20, ratio6_1, false);
+motor_group Rights = motor_group(RightA, RightB, RightC);
 
 Drive chassis(
 
@@ -40,16 +53,16 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-leftmotors,
+Lefts,
 
 //Right Motors:
-rightmotors,
+Rights,
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT11,
+PORT18,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-4.25,
+3.25,
 
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
@@ -72,10 +85,11 @@ PORT11,
 
 //FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
 //LF:      //RF:    
-PORT1, -PORT2,
+PORT1,     -PORT2,
 
+//LB:      //RB: 
+PORT3,     -PORT4,
 
-PORT3, -PORT4,
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
 //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
@@ -116,6 +130,7 @@ void pre_auton() {
   default_constants();
 
   while(!auto_started){
+    std::cout << armrot.position(degrees) << std::endl;
     Brain.Screen.clearScreen();
     Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
     Brain.Screen.printAt(5, 40, "Battery Percentage:");
@@ -125,36 +140,34 @@ void pre_auton() {
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     switch(current_auton_selection){
       case 0:
-        Brain.Screen.printAt(5, 140, "Auton 1");
+        Brain.Screen.printAt(5, 140, "Red Negative");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Red Negative");
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Auton 2");
+        Brain.Screen.printAt(5, 140, "Red Positive");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Red Positive");
         break;
       case 2:
-        Brain.Screen.printAt(5, 140, "Auton 3");
+        Brain.Screen.printAt(5, 140, "Blue Negative");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Blue Negative");
         break;
       case 3:
-        Brain.Screen.printAt(5, 140, "Auton 4");
+        Brain.Screen.printAt(5, 140, "Blue Positive");
+        Controller1.Screen.setCursor(3,1);
+        Controller1.Screen.print("Blue Positive");
         break;
-      case 4:
-        Brain.Screen.printAt(5, 140, "Auton 5");
-        break;
-      case 5:
-        Brain.Screen.printAt(5, 140, "Auton 6");
-        break;
-      case 6:
-        Brain.Screen.printAt(5, 140, "Auton 7");
-        break;
-      case 7:
-        Brain.Screen.printAt(5, 140, "Auton 8");
-        break;
+
     }
     if(Brain.Screen.pressing()){
       while(Brain.Screen.pressing()) {}
       current_auton_selection ++;
-    } else if (current_auton_selection == 8){
+    } else if (current_auton_selection == 4){
       current_auton_selection = 0;
     }
+    wait(10,msec);
   }
 }
 
@@ -169,16 +182,16 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      drive_test();
+      rednegative();
       break;
     case 1:         
-      drive_test();
+      redpositive();
       break;
     case 2:
-      turn_test();
+      bluenegative();
       break;
     case 3:
-      swing_test();
+      bluepositive();
       break;
     case 4:
       full_test();
@@ -205,21 +218,125 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-bool armStopped = true;
-bool intakeStopped = true;
-bool Controller1UpDownButtonsControlMotorsStopped = true;
+void ClampToggle(){
+  if (mogoMount.value() == true){
+    mogoMount.set(false);
+  }
+  else {
+    mogoMount.set(true);
+    wait(20, msec); // Sleep the task for a short amount of time to
+                    // prevent wasted resources.
+  }
+}
+
+// void FlagToggle(){
+//   if (Flag.value() == true){
+//     Flag.set(false);
+//   }
+//   else {
+//     Flag.set(true);
+//     wait(20, msec); // Sleep the task for a short amount of time to
+//                     // prevent wasted resources.
+//   }
+//}
+
+
+const float kp = 1;
+const float ki = 0.1;
+const float kd = 2;
+const float starti = 5;
+const float settle_error = 1;   // Considered settled within 1 degree
+const float settle_time = 500;  // 500ms to be considered settled
+const float timeout = 2000;     // Give up after 5 seconds
+const float update_period = 10;
+
+// void ladybrown_move(float output) {
+//     ladybrown.spin(output);
+// }
+
+enum LadybrownPositions {
+    SET = 21,
+    SCORE = 160,
+    RESET = 0,
+};
+
+// Global Variable for MoveToAngle Task
+float targetAngleGlobal;
+
+bool isRunning = false;
+
+void moveToAngle() {
+    isRunning = true;
+    // Get the current angle of the arm
+   // Target angle in degrees
+    float currentAngle = armrot.position(rotationUnits::deg);  // Get current angle from the rotational sensor
+
+    // Initialize PID controller with the current error
+    PID ladybrownPID(reduce_negative_180_to_180(targetAngleGlobal - currentAngle), kp, ki, kd, starti, settle_error, settle_time, timeout, update_period);
+
+    // Loop until the PID controller settles
+    while (!ladybrownPID.is_settled()) {
+        // Calculate the current error
+        float error = reduce_negative_180_to_180(targetAngleGlobal  - armrot.position(rotationUnits::deg));
+
+        // Compute the output using the PID controller
+        float output = ladybrownPID.compute(error);
+
+        // Clamp the output to the maximum voltage to avoid overdriving the motor
+        output = clamp(output, -12, 12);  // Assuming 12V is the maximum voltage
+
+
+   
+        // Move the motor with the computed output
+        if (output > 0) {
+            ladybrown.spin(directionType::rev, output, voltageUnits::volt);  // Move forward
+        } else if (output < 0) {
+            ladybrown.spin(directionType::fwd, -output, voltageUnits::volt);  // Move reverse
+        }
+
+        // Sleep for the update period to control the loop frequency
+        wait(10,msec);
+    }
+
+    // Once settled, stop the motor and hold its position
+    ladybrown.stop(brakeType::hold);
+
+}
+
+void startMoveToAngle(float angle) {
+    targetAngleGlobal = angle;
+    if (!isRunning) {
+        vex::thread moveToAngleThread(moveToAngle);
+        moveToAngleThread.detach();
+    }
+    isRunning = false;
+}
 
 
 void usercontrol(void) {
-  
-vexcodeInit();
+   ladybrown.spin(fwd,100,pct);
+ wait(1,sec);
+ ladybrown.stop(hold);
+ ladybrown.resetPosition();
+ ladybrown.stop(hold);
+  bool big = false;
+  bool Flagtrueorfalse = false;
 
-  while (1) {
+  // User control code here, inside the loop
+  while (true) {
+    intake1.setVelocity(100, pct);
+    ladybrown.setVelocity(100, pct);
+    if(Controller1.ButtonB.pressing()){
+      Clamp.set(!big);
+      big = !big;
+      wait(200, msec);
+    }
 
-
-
-    Intake.setVelocity(100,pct);
-    LadyBrown.setVelocity(100,pct);
+    if(Controller1.ButtonDown.pressing()){
+      Flag.set(!Flagtrueorfalse);
+      Flagtrueorfalse = !Flagtrueorfalse;
+      wait(200, msec);
+    }
 
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -234,79 +351,45 @@ vexcodeInit();
     //or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();
 
-
-    //chassis.control_task();
-    Controller1.ButtonA.pressed(Raise);
-    Controller1.ButtonA.pressed(Score);
-    Controller1.ButtonA.pressed(Release);
-
- /*rown.spin(fwd);
-      armStopped = false;
-    }
-    else if(Controller1.ButtonDown.pressing()){
-      LadyBrown.spin(reverse);
-      armStopped = false;
-    }
-    else if(!armStopped){
-      LadyBrown.stop();
-      armStopped = true;
-    } */
-
-        // check the ButtonUp/ButtonDown status to control Motor20
-      if (Controller1.ButtonR1.pressing()) {
-        Intake.spin(forward);
-        intakeStopped = false;
+    if (Controller1.ButtonR1.pressing()) {
+        intake1.spin(forward);
+        
       } else if (Controller1.ButtonR2.pressing()) {
-        Intake.spin(reverse);
-        intakeStopped = false;
-      } else if (!intakeStopped) {
-        Intake.stop();
+      intake1.spin(reverse);
+        
+      } else {
+        intake1.stop();
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
-        intakeStopped = true;
+        
       }
-       // hue from 0-30 red 
-       // hue from 180-220 blue
-
-  if (Controller1.ButtonL1.pressing()) {
-    LadyBrown.spin(forward);
-  } else if (Controller1.ButtonL2.pressing()){
-    LadyBrown.spin(reverse);
-  } else {
-    LadyBrown.stop();
-  }
-
-  if (isClamp) {
-    Clamp.set(true);
-  }
-  else {
-    Clamp.set(false);
-  }
-
-  if (Controller1.ButtonB.pressing()) {
-    isClamp = !isClamp;
-    waitUntil(!Controller1.ButtonB.pressing());
-  }
-
-
-                                                                                                        
-
-
-
+if (Controller1.ButtonL1.pressing()) {
+        ladybrown.spin(forward);
+        
+      } else if (Controller1.ButtonL2.pressing()) {
+        ladybrown.spin(reverse);
+        
+      } else {
+       ladybrown.stop();
+      }
+  
+      if (Controller1.ButtonA.pressing()){
+        startMoveToAngle(3.7);
+      }
+      if(Controller1.ButtonY.pressing()){
+        startMoveToAngle(480);
+      }
       
 
-     
+  
 
-
-
-
-
+      wait(20,msec);
 
     
 
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
+
   }
 }
+
 
 //
 // Main will set up the competition functions and callbacks.
@@ -315,7 +398,6 @@ int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(bluepositive);
   Competition.drivercontrol(usercontrol);
-  
 
   // Run the pre-autonomous function.
   pre_auton();
@@ -325,3 +407,4 @@ int main() {
     wait(100, msec);
   }
 }
+  
