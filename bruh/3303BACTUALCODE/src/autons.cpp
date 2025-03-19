@@ -1,5 +1,8 @@
 #include "vex.h"
 
+
+
+#pragma region EXAMP
 /**
  * Resets the constants for auton movement.
  * Modify these to change the default behavior of functions like
@@ -126,62 +129,64 @@ void holonomic_odom_test(){
 }
 
 
+#pragma endregion
+
 void rednegative(){
   chassis.drive_max_voltage = 12;
-  Intake.setVelocity(200,pct);
-  chassis.set_heading(180);
-  LadyBrown.setVelocity(100,pct);
+ // intake1.setVelocity(200,pct);
+ // chassis.set_heading(180);
+ // ladybrown.setVelocity(100,pct);
 
-  LadyBrown.spin(reverse,100,pct);
+ // ladybrown.spin(reverse,100,pct);
 
 
-chassis.drive_distance(16);
-  chassis.turn_to_angle(270);
-  LadyBrown.spinToPosition(6.5,rev);
-  chassis.drive_distance(-5);
-  LadyBrown.spin(reverse,100,pct);
-  chassis.turn_to_angle(225);
-  Clamp.set(true);
-  chassis.drive_distance(-23.3);
-  chassis.drive_distance(-2);
-  chassis.drive_distance(-6);
-  Clamp.set(false);
-  Intake.spin(fwd,100,pct);
-  chassis.turn_to_angle(0);
-  chassis.drive_distance(33);
-  chassis.drive_distance(-38);
-  chassis.turn_to_angle(37);
-  chassis.drive_distance(25);
-  chassis.turn_to_angle(20);
-  chassis.drive_distance(12);
+//chassis.drive_distance(16);
+ // chassis.turn_to_angle(270);
+ // ladybrown.spinToPosition(6.5,rev);
+ // chassis.drive_distance(-5);
+ // ladybrown.spin(reverse,100,pct);
+ // chassis.turn_to_angle(225);
+ //Clamp.set(true);
+ // chassis.drive_distance(-23.3);
+  //chassis.drive_distance(-2);
+ // chassis.drive_distance(-6);
+ // Clamp.set(false);
+  //intake1.spin(fwd,100,pct);
+  //chassis.turn_to_angle(0);
+  //chassis.drive_distance(33);
+  //chassis.drive_distance(-38);
+  //chassis.turn_to_angle(37);
+ // chassis.drive_distance(25);
+  //chassis.turn_to_angle(20);
+  //chassis.drive_distance(12);
   
 }
 void redpositive(){
  chassis.drive_max_voltage = 12;
-    chassis.drive_timeout = 1200;
-    Intake.setVelocity(100, pct);
-    Clamp.set(true);
-    chassis.drive_distance(-20, 0);
-    chassis.drive_max_voltage = 9;
-    chassis.turn_to_angle(-30);
-    chassis.drive_distance(-9.5, -30);
-    chassis.drive_max_voltage = 12;
-    wait(35, msec);
-    Clamp.set(false);
-    wait(35, msec);
-    Intake.spin(forward);
-    wait(110, msec);
-    chassis.turn_to_angle(-100);
-    chassis.drive_distance(19, -100);
-    wait(135, msec);
-   chassis.turn_to_angle(61.5);
-    chassis.drive_max_voltage = 9;
+    //chassis.drive_timeout = 1200;
+    //intake1.setVelocity(100, pct);
+    //Clamp.set(true);
+    //chassis.drive_distance(-20, 0);
+    //chassis.drive_max_voltage = 9;
+    //chassis.turn_to_angle(-30);
+    //chassis.drive_distance(-9.5, -30);
+    //chassis.drive_max_voltage = 12;
+    //wait(35, msec);
+    //Clamp.set(false);
+    //wait(35, msec);
+    //intake1.spin(forward);
+    //wait(110, msec);
+   // chassis.turn_to_angle(-100);
+   // chassis.drive_distance(19, -100);
+   // wait(135, msec);
+   //chassis.turn_to_angle(61.5);
+   // chassis.drive_max_voltage = 9;
    /** chassis.drive_distance(38, 61.5);
     chassis.drive_max_voltage = 12;
     wait(320, msec);/**/
-    /*Intake.stop();
+    /*intake1.stop();
     /*chassis.drive_distance(-10,61.5);
-    /*Intake.stop();
+    /*intake1.stop();
     Clamp.set(true);
     chassis.drive_distance(3, 61.5);
     chassis.turn_to_angle(218);
@@ -191,8 +196,8 @@ void redpositive(){
     chassis.turn_to_angle(176);
     Clamp.set(false);
     chassis.drive_distance(-14, 176);
-    Intake.spin(reverse);
-    Intake.spin(reverse);
+    intake1.spin(reverse);
+    intake1.spin(reverse);
     wait(1.8, sec);
     chassis.drive_max_voltage = 12;
     chassis.drive_distance(30,176); */
@@ -200,64 +205,88 @@ void redpositive(){
 
 void bluenegative(){
    chassis.drive_max_voltage = 12;
-  Intake.setVelocity(200,pct);
-  chassis.set_heading(180);
-  LadyBrown.setVelocity(100,pct);
+  // intake1.setVelocity(200,pct);
+  //chassis.set_heading(180);
+  //ladybrown.setVelocity(100,pct);
 
-  LadyBrown.spin(reverse,100,pct);
+  //ladybrown.spin(reverse,100,pct);
 
 
-chassis.drive_distance(16);
-  chassis.turn_to_angle(-270);
-  LadyBrown.spinToPosition(6.5,rev);
-  chassis.drive_distance(-5);
-  LadyBrown.spin(reverse,100,pct);
-  chassis.turn_to_angle(-225);
-  Clamp.set(true);
-  chassis.drive_distance(-23.3);
-  chassis.drive_distance(-2);
-  chassis.drive_distance(-6);
-  Clamp.set(false);
-  Intake.spin(fwd,100,pct);
-  chassis.turn_to_angle(0);
-  chassis.drive_distance(33);
-  chassis.drive_distance(-33);
-  chassis.turn_to_angle(-40);
-  chassis.drive_distance(25);
-  chassis.turn_to_angle(-20);
-  chassis.drive_distance(12);
+//chassis.drive_distance(16);
+  //chassis.turn_to_angle(-270);
+  //ladybrown.spinToPosition(6.5,rev);
+  //chassis.drive_distance(-5);
+  //ladybrown.spin(reverse,100,pct);
+  //chassis.turn_to_angle(-225);
+  //Clamp.set(true);
+  //chassis.drive_distance(-23.3);
+  //chassis.drive_distance(-2);
+ // chassis.drive_distance(-6);
+  //Clamp.set(false);
+  //intake1.spin(fwd,100,pct);
+  //chassis.turn_to_angle(0);
+  //chassis.drive_distance(33);
+  //chassis.drive_distance(-33);
+  //chassis.turn_to_angle(-40);
+  //chassis.drive_distance(25);
+  //chassis.turn_to_angle(-20);
+  //chassis.drive_distance(12);
 
 }
 
 void bluepositive(){
 chassis.drive_max_voltage = 12;
     chassis.drive_timeout = 1200;
-    Intake.setVelocity(100, pct);
+    intake1.setVelocity(100, pct);
+    chassis.drive_distance(-15, 0);
     Clamp.set(true);
-    chassis.drive_distance(-20, 0);
-    chassis.drive_max_voltage = 9;
-    chassis.turn_to_angle(30);
-    chassis.drive_distance(-9.5, 30);
-    chassis.drive_max_voltage = 12;
-    wait(35, msec);
-    Clamp.set(false);
-    wait(35, msec);
-    Intake.spin(forward);
-    wait(110, msec);
-    chassis.turn_to_angle(100);
-    chassis.drive_distance(19, 100);
-    Intake.spin(forward);
-    wait(135, msec);
-   chassis.turn_to_angle(-61.5);
-    chassis.drive_max_voltage = 9;
+    Clamp.set(true);
+    intake1.spin(forward);
+    chassis.drive_distance(16.5, 0);
+    intake1.stop();
+    chassis.turn_to_angle(90);
+    intake1.spin(forward);
+    chassis.drive_distance(25,  0);
+    chassis.turn_to_angle(225);
+    chassis.drive_distance(10, 0);
+    intake1.spin(forward);
+    chassis.drive_distance(15, 0);
+    chassis.turn_to_angle(15);
+    chassis.drive_distance(15, 0);
+    chassis.drive_distance(-3, 0);
+    chassis.drive_distance(5, 0);
+    chassis.drive_distance(-3, 0);
+
+    //chassis.drive_distance(8);
+    //intake1.spin(reverse);
+    //chassis.drive_distance(5, 0);
+    //chassis.drive_distance(-10, 0);
+    //chassis.turn_to_angle(270);
+    //chassis.drive_distance(4, 0);
+    //chassis.drive_distance(-20, 0);
+    //chassis.drive_max_voltage = 9;
+    //chassis.turn_to_angle(30);
+    //chassis.drive_distance(-9.5, 30);
+    //chassis.drive_max_voltage = 12;
+    //wait(35, msec);
+    //Clamp.set(false);
+    //wait(35, msec);
+    //intake1.spin(forward);
+    //wait(110, msec);
+    //chassis.turn_to_angle(100);
+    //chassis.drive_distance(19, 100);
+    //intake1.spin(forward);
+    //wait(135, msec);
+   //chassis.turn_to_angle(-61.5);
+   // chassis.drive_max_voltage = 9;
 }
 
 void testrun(){
   chassis.set_heading(0);
-  Intake.setVelocity(100,pct);
+  intake1.setVelocity(100,pct);
   chassis.turn_to_angle(-45),
   chassis.drive_distance(12);
-  Intake.spin(fwd,100,pct);
+  intake1.spin(fwd,100,pct);
 
 }
   
@@ -266,11 +295,11 @@ void testrun(){
 
  /*chassis.turn_to_angle(190);
   chassis.drive_distance(15);
-  Intake.spinFor(2,sec);
+  intake1.spinFor(2,sec);
 
   chassis.turn_to_angle(195);
   chassis.drive_distance(15);
-  Intake.spin(fwd,100,pct);
+  intake1.spin(fwd,100,pct);
   wait(1,sec);
 
   chassis.turn_to_angle(0); */
