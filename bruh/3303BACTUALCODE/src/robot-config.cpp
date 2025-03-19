@@ -7,77 +7,28 @@ using code = vision::code;
 // A global instance of brain used for printing to the V5 Brain screen.
 brain  Brain;
 
-motor Intake = motor(PORT10, ratio6_1, false);
-motor LadyBrown = motor(PORT19, ratio6_1, false);
+//The motor constructor takes motors as (port, ratio, reversed), so for example
+//motor LeftFront = motor(PORT1, ratio6_1, false);
 
-digital_out Clamp = digital_out(Brain.ThreeWirePort.A);  
+//Add your devices below, and don't forget to do the same in robot-config.h:
+motor intake1 = motor(PORT1, ratio6_1, false);
+controller Controller1 = controller(primary);
+digital_out mogoMount = digital_out(Brain.ThreeWirePort.A);
+inertial DrivetrainInertial = inertial(PORT15);
+motor ladybrown = motor(PORT8, ratio18_1, true);
+rotation armrot = rotation(PORT21,false);
+digital_out Clamp = digital_out(Brain.ThreeWirePort.A);
+digital_out Flag = digital_out(Brain.ThreeWirePort.C);
 
 
+double angle = armrot.angle(degrees);
 
-bool clampState = false;
-
-void vexcodeInit(void) {
-  Brain.Screen.print("Device initialization...");
-  Brain.Screen.setCursor(2, 1);
-  wait(200, msec);
-
-  Brain.Screen.clearScreen();
-  Brain.Screen.setCursor(1, 1);
-  wait(50, msec);
-  Brain.Screen.clearScreen();
-
-  LadyBrown.spin(reverse, 100, pct);
-  wait(250, msec);
-  LadyBrown.stop();
-  LadyBrown.resetPosition();
+void vexcodeInit( void ) {
 }
 
-void Raise(void) {
-  LadyBrown.spinToPosition(0.9, rev);
-  LadyBrown.stop(hold);
+void LadyBrownUp(void) {
+  ladybrown.spinToPosition(-2.5,rev);
+  ladybrown.stop(hold);
 }
 
-void Release(void) {
-  LadyBrown.spinToPosition(0, rev);
-  LadyBrown.stop(hold);
-}
-
-void Score(void) {
-  LadyBrown.spinToPosition(6.5, rev);
-  LadyBrown.stop(hold);
-}
-
-void ClampIn() {
-  Clamp.set(true);
-}
-
-void ClampOut() {
-  Clamp.set(false);
-}
-
-void DoinkerIn() {
-  Doinker.set(false);
-}
-
-void DoinkerOut() {
-  Doinker.set(true);
-}
-
-void IntakeLiftUp() {
-  IntakeLevel.set(true);
-}
-
-void IntakeLiftDown() {
-  IntakeLevel.set(false);
-}
-
-void toggleDoinker(void) {
-  if (Doinker.value()) {
-    Doinker.set(false);
-  } else {
-    Doinker.set(true);
-  }
-  wait(250, msec);
-}
-
-
+ 
